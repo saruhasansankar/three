@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MetalitixLogger ThreeJS example</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <script src="https://cdn.metalitix.com/logger/three-js/latest/three-js.js"></script>
+  </head>
+  <body>
+    <script
+      async
+      src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"
+    ></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../node_modules/three/build/three.module.js",
+          "three/addons/": "../node_modules/three/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import { createGUI } from "./gui.mjs";
+      import { createScene } from "./scene.mjs";
+
+      /**
+       * METALITIX INITIALIZATION
+       * The code below initializes a Metalitix logger with custom settings:
+       *  - Enable a random prompt asking the user their engagement level
+       *  - Set the color theme of the prompt 'white'
+       */
+      const metalitixLoggerApiKey = "890cb53f-7c9d-4483-ba17-6a3f34a2d545";
+      const optionalShowSurvey = true;
+      const optionalSurveyTheme = "white";
+      const logger = new MetalitixLogger(metalitixLoggerApiKey, {
+        showSurvey: optionalShowSurvey,
+        surveyTheme: optionalSurveyTheme,
+      });
+
+      /**
+       * METALITIX LOGGING
+       * The code below tells Metalitix to begin recording behavior in the specified scene.
+       */
+      const gui = createGUI(logger);
+      const { camera, teapot } = createScene(gui);
+      logger.startSession(camera, teapot);
+      logger.setAttribute("Did Press", false); // Set the default custom attribute value.
+
+      /**
+       * METALITIX CUSTOM METRICS
+       * The code below will record key presses of 'M', 'T', and 'X' to Metalitix.
+       * - Initialized to `false` above, the session's attribute "Did Press" will change to `true`
+       * - The key 'M', 'T', or 'X' will record to the chart "Key Presses"
+       * - The number of times a key is pressed will accumulate and aggregate in the chart "Press Count"
+       */
+      const KEYS = ["M", "T", "X"];
+      window.addEventListener("keydown", function (event) {
+        if (!event) event = window.event;
+
+        const key = event.key.toUpperCase();
+        if (KEYS.includes(key)) {
+          logger.setAttribute("Did Press", true);
+          logger.logEvent("Key Presses", `${key} Pressed`);
+          logger.logState("Press Count", 1);
+        }
+      });
+    </script>
+  </body>
+</html>
