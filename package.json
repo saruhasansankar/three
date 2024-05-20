@@ -4,7 +4,7 @@
   "description": "three.js example project showing a Metalitix® integration. Unlock spatial analytics for your 3D scene.",
   "main": "index.js",
   "scripts": {
-    "start": "http-server ./ -p 3500 -o /public"
+    "start": "react-scripts start"
   },
   "repository": {
     "type": "git",
