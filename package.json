@@ -1,0 +1,23 @@
+{
+  "name": "metalitix-threejs-example",
+  "version": "1.0.0",
+  "description": "three.js example project showing a Metalitix® integration. Unlock spatial analytics for your 3D scene.",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server ./ -p 3500 -o /public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aircards/metalitix-threejs-example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aircards/metalitix-threejs-example/issues"
+  },
+  "homepage": "https://github.com/Aircards/metalitix-threejs-example#readme",
+  "dependencies": {
+    "http-server": "^14.1.1",
+    "three": "^0.147.0"
+  }
+}
